@@ -1,0 +1,10 @@
+{
+  "segments": [
+    {
+      "id": 1,
+      "name": "Segment 1",
+      "icon": "department_store",
+      "description": "rgba(207, 223, 255, 1)"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+<div class="flex justify-end">
+  <svg
+    width="13"
+    height="13"
+    viewBox="0 0 13 13"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    mat-dialog-close
+    class="cursor-pointer"
+  >
+    <path
+      d="M10.9929 11.7733L6.94629 7.72795L2.8997 11.7733C2.79367 11.8798 2.66764 11.9643 2.52886 12.022C2.39008 12.0796 2.24128 12.1093 2.091 12.1093C1.94072 12.1093 1.79192 12.0796 1.65314 12.022C1.51436 11.9643 1.38833 11.8798 1.2823 11.7733C1.1758 11.6673 1.0913 11.5412 1.03363 11.4025C0.975972 11.2637 0.946289 11.1149 0.946289 10.9646C0.946289 10.8143 0.975972 10.6655 1.03363 10.5267C1.0913 10.388 1.1758 10.2619 1.2823 10.1559L5.32765 6.10931L1.2823 2.06273C1.1758 1.95669 1.0913 1.83067 1.03363 1.69189C0.975972 1.55311 0.946289 1.40431 0.946289 1.25402C0.946289 1.10374 0.975972 0.95494 1.03363 0.81616C1.0913 0.677381 1.1758 0.551357 1.2823 0.445323C1.38833 0.338826 1.51436 0.254321 1.65314 0.196659C1.79192 0.138997 1.94072 0.109314 2.091 0.109314C2.24128 0.109314 2.39008 0.138997 2.52886 0.196659C2.66764 0.254321 2.79367 0.338826 2.8997 0.445323L6.94629 4.49068L10.9929 0.445323C11.0989 0.338826 11.2249 0.254321 11.3637 0.196659C11.5025 0.138997 11.6513 0.109314 11.8016 0.109314C11.9519 0.109314 12.1007 0.138997 12.2394 0.196659C12.3782 0.254321 12.5042 0.338826 12.6103 0.445323C12.7168 0.551357 12.8013 0.677381 12.8589 0.81616C12.9166 0.95494 12.9463 1.10374 12.9463 1.25402C12.9463 1.40431 12.9166 1.55311 12.8589 1.69189C12.8013 1.83067 12.7168 1.95669 12.6103 2.06273L8.56493 6.10931L12.6103 10.1559C12.7168 10.2619 12.8013 10.388 12.8589 10.5267C12.9166 10.6655 12.9463 10.8143 12.9463 10.9646C12.9463 11.1149 12.9166 11.2637 12.8589 11.4025C12.8013 11.5412 12.7168 11.6673 12.6103 11.7733C12.5042 11.8798 12.3782 11.9643 12.2394 12.022C12.1007 12.0796 11.9519 12.1093 11.8016 12.1093C11.6513 12.1093 11.5025 12.0796 11.3637 12.022C11.2249 11.9643 11.0989 11.8798 10.9929 11.7733Z"
+      fill="#888888"
+    />
+  </svg>
+</div>
+
+<div class="px-4">
+  <h1 class="title-dialog mb-10">
+    Add a {{ data.isSegment ? "segment" : "table" }}
+  </h1>
+
+  <!-- condition add table -->
+  <div *ngIf="!data.isSegment" class="w-full">
+    <div class="flex flex-col mb-8">
+      <label for="" class="f-s-16 f-w-700 mb-2">Name*</label>
+      <input
+        type="text"
+        [(ngModel)]="itemTable.name"
+        class="py-3 px-2 w-full border-input f-s-14"
+        placeholder="Ex: Computer Software"
+        required
+      />
+    </div>
+
+    <!-- icon -->
+    <div class="flex flex-col mb-8">
+      <label for="" class="f-s-16 f-w-700 mb-2">Icon</label>
+      <div class="relative">
+        <div
+          class="flex items-center justify-between h-input border-input w-full f-s-14 cursor-pointer pl-2 pr-4"
+          (click)="showEmoji = true"
+        >
+          <p>{{ itemTable.icon }}</p>
+          <mat-icon>expand_more</mat-icon>
+        </div>
+        <div class="absolute" style="z-index: 999 !important">
+          <emoji-mart
+            class="emoji-mart"
+            *ngIf="showEmoji"
+            (emojiSelect)="addEmoji($event)"
+            title="Choose your emoji"
+          ></emoji-mart>
+        </div>
+      </div>
+    </div>
+
+    <!-- color -->
+    <div class="flex flex-col">
+      <label for="" class="f-s-16 f-w-700 mb-2">Color</label>
+      <div class="relative">
+        <div
+          class="flex items-center justify-between h-input border-input w-full f-s-14 cursor-pointer pl-2 pr-4"
+          (click)="showListColor = true"
+        >
+          <div class="circle" [style.background-color]="itemTable.color"></div>
+          <mat-icon>expand_more</mat-icon>
+        </div>
+        <div class="card-list-color absolute" [hidden]="!showListColor">
+          <div class="grid grid-cols-5">
+            <div
+              class="circle cursor-pointer"
+              *ngFor="let color of colorPalette"
+              [style.background-color]="color"
+              (click)="onSelectColor(color)"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- condition add table -->
+  <div *ngIf="data.isSegment" class="w-full">
+    <div class="flex flex-col mb-8">
+      <label for="" class="f-s-16 f-w-700 mb-2">Name*</label>
+      <input
+        type="text"
+        [(ngModel)]="itemSegment.name"
+        class="py-3 px-2 w-full border-input f-s-14"
+        placeholder="Ex: Computer Software"
+        required
+      />
+    </div>
+
+    <!-- icon -->
+    <div class="flex flex-col mb-8">
+      <label for="" class="f-s-16 f-w-700 mb-2">Icon</label>
+      <div class="relative">
+        <div
+          class="flex items-center justify-between h-input border-input w-full f-s-14 cursor-pointer pl-2 pr-4"
+          (click)="showEmoji = true"
+        >
+          <p>{{ itemSegment.icon }}</p>
+          <mat-icon>expand_more</mat-icon>
+        </div>
+        <div class="absolute" style="z-index: 999 !important">
+          <emoji-mart
+            class="emoji-mart"
+            *ngIf="showEmoji"
+            (emojiSelect)="addEmoji($event)"
+            title="Choose your emoji"
+          ></emoji-mart>
+        </div>
+      </div>
+    </div>
+
+    <!-- description -->
+    <div class="flex flex-col">
+      <label for="" class="f-s-16 f-w-700 mb-2">Description</label>
+      <textarea
+        [(ngModel)]="itemSegment.description"
+        name=""
+        id=""
+        cols="30"
+        rows="10"
+        class="w-full py-3 px-2 border-input f-s-14"
+      ></textarea>
+    </div>
+  </div>
+  <!-- area button -->
+  <div class="button-area flex">
+    <button
+      class="btn-add mr-4 f-s-16"
+      [disabled]="
+        (!data.isSegment && !itemTable.name) ||
+        (data.isSegment && !itemSegment.name) ||
+        (data.isSegment && !itemSegment.description)
+      "
+      (click)="updateData()"
+    >
+      Add
+    </button>
+    <button class="btn-cancel f-s-16" mat-dialog-close>Cancel</button>
+  </div>
+</div>
