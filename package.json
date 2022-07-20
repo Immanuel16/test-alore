@@ -23,7 +23,6 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@ctrl/ngx-emoji-mart": "^6.2.0",
-    "json-server": "^0.17.0",
     "node-sass": "^7.0.1",
     "rxjs": "~6.6.0",
     "sass-loader": "^13.0.2",
